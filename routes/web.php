@@ -30,8 +30,13 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/messages', [\App\Http\Controllers\MessageController::class, 'index']);
+    Route::get('/messages', [\App\Http\Controllers\MessageController::class, 'index'])->name('messages');
     Route::post('/messages', [\App\Http\Controllers\MessageController::class, 'store']);
+
+    Route::get('/users/{user}', [\App\Http\Controllers\UserController::class, 'show']);
+    Route::post('/users/{user}', [\App\Http\Controllers\UserController::class, 'sendLike']);
+    Route::get('/users-like/{user}', [\App\Http\Controllers\UserController::class, 'infoLike']);
+    Route::get('/users/', [\App\Http\Controllers\UserController::class, 'allUsers'])->name('users');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

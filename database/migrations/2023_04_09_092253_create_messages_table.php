@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
+            $table->text('from_name');
+            $table->text('from_id');
             $table->text('body');
             $table->timestamps();
         });
