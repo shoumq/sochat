@@ -25,7 +25,7 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
+Route::get('/', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -37,6 +37,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/users/{user}', [\App\Http\Controllers\UserController::class, 'sendLike']);
     Route::get('/users-like/{user}', [\App\Http\Controllers\UserController::class, 'infoLike']);
     Route::get('/users/', [\App\Http\Controllers\UserController::class, 'allUsers'])->name('users');
+
+    Route::get('/friends/{user}', [\App\Http\Controllers\FriendController::class, 'friends'])->name('friends');
+    Route::get('/friend-info/{user_from}/{user_to}', [\App\Http\Controllers\FriendController::class, 'infoFriend']);
+    Route::post('/friend/add/{user_from}/{user_to}', [\App\Http\Controllers\FriendController::class, 'store']);
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

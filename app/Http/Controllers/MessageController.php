@@ -24,7 +24,6 @@ class MessageController extends Controller
         $message->from_name = Auth::user()->name;
         $message->from_id = Auth::user()->id;
         $message->body = $request->body;
-//        $message = Message::create($data);
         $message->save();
 
         event(new StoreMessageEvent($message));
